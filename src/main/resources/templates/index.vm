@@ -7,8 +7,12 @@
 <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
 <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
     <h4>web页面性能测试:${URL}</h4>
+    <div id="DnsTime" style="min-width:500px;height:400px"></div>
     <div id="WhitePageTime" style="min-width:500px;height:400px"></div>
+    <div id="DomTime" style="min-width:500px;height:400px"></div>
+    <div id="JSTime" style="min-width:500px;height:400px"></div>
     <div id="FirstPageTime" style="min-width:500px;height:400px"></div>
+
 
     <script>
 		//自己编写的js方法
@@ -18,6 +22,46 @@
 		}
 
         $(function () {
+            $('#DnsTime').highcharts({
+                            chart: {
+                                type: 'column'
+                            },
+                            credits: {
+                                enabled:false
+                            },
+                            title: {
+                                text: 'Dns查询时间'
+                            },
+                            xAxis: {
+                                categories: [
+                                    'Dns查询'
+                                ],
+                                crosshair: true
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'ms'
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                pointFormat: '<tr><td style="font-size:10px;color:{series.color};padding:0">{series.name}: </td>' +
+                                '<td style="padding:0;font-size:10px;">{point.y:.1f} ms</td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [{
+                                name: 'Dns查询时间',
+                                data: [${DomTime}]
+                            }]
+                        });
             $('#WhitePageTime').highcharts({
                 chart: {
                     type: 'column'
@@ -43,7 +87,7 @@
                 tooltip: {
                     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                     pointFormat: '<tr><td style="font-size:10px;color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0;font-size:10px;">{point.y:.1f} 秒</td></tr>',
+                    '<td style="padding:0;font-size:10px;">{point.y:.1f} ms</td></tr>',
                     footerFormat: '</table>',
                     shared: true,
                     useHTML: true
@@ -58,6 +102,88 @@
                     data: [${WhitePageTime}]
                 }]
             });
+            $('#DomTime').highcharts({
+                                        chart: {
+                                            type: 'column'
+                                        },
+                                        credits: {
+                                            enabled:false
+                                        },
+                                        title: {
+                                            text: 'DOM渲染时间'
+                                        },
+                                        xAxis: {
+                                            categories: [
+                                                'DOM渲染'
+                                            ],
+                                            crosshair: true
+                                        },
+                                        yAxis: {
+                                            min: 0,
+                                            title: {
+                                                text: 'ms'
+                                            }
+                                        },
+                                        tooltip: {
+                                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                            pointFormat: '<tr><td style="font-size:10px;color:{series.color};padding:0">{series.name}: </td>' +
+                                            '<td style="padding:0;font-size:10px;">{point.y:.1f} ms</td></tr>',
+                                            footerFormat: '</table>',
+                                            shared: true,
+                                            useHTML: true
+                                        },
+                                        plotOptions: {
+                                            column: {
+                                                borderWidth: 0
+                                            }
+                                        },
+                                        series: [{
+                                            name: 'DOM渲染',
+                                            data: [${DomTime}]
+                                        }]
+                                    });
+             $('#JSTime').highcharts({
+                                chart: {
+                                    type: 'column'
+                                },
+                                credits: {
+                                    enabled:false
+                                },
+                                title: {
+                                    text: 'JS执行时间'
+                                },
+                                xAxis: {
+                                    categories: [
+                                        'JS执行'
+                                    ],
+                                    crosshair: true
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: 'ms'
+                                    }
+                                },
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                    pointFormat: '<tr><td style="font-size:10px;color:{series.color};padding:0">{series.name}: </td>' +
+                                    '<td style="padding:0;font-size:10px;">{point.y:.1f} ms</td></tr>',
+                                    footerFormat: '</table>',
+                                    shared: true,
+                                    useHTML: true
+                                },
+                                plotOptions: {
+                                    column: {
+                                        borderWidth: 0
+                                    }
+                                },
+                                series: [{
+                                    name: 'JS执行',
+                                    data: [${JSTime}]
+                                }]
+                            });
+
+
             $('#FirstPageTime').highcharts({
                             chart: {
                                 type: 'column'
@@ -83,7 +209,7 @@
                             tooltip: {
                                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                                 pointFormat: '<tr><td style="font-size:10px;color:{series.color};padding:0">{series.name}: </td>' +
-                                '<td style="padding:0;font-size:10px;">{point.y:.1f} 秒</td></tr>',
+                                '<td style="padding:0;font-size:10px;">{point.y:.1f} ms</td></tr>',
                                 footerFormat: '</table>',
                                 shared: true,
                                 useHTML: true

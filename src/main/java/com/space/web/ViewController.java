@@ -21,9 +21,14 @@ import java.io.InputStreamReader;
 public class ViewController {
     @RequestMapping(value = "/report",method = RequestMethod.GET)
 
-    public String index(String URL,Long WhitePageTime,Long FirstPageTime,ModelMap map) {
+    public String index(String URL,Long DnsTime,Long WhitePageTime,
+                        Long DomTime,Long JSTime,Long FirstPageTime,
+                        ModelMap map) {
         map.addAttribute("URL", URL);
+        map.addAttribute("DnsTime", DnsTime);
         map.addAttribute("WhitePageTime", WhitePageTime);
+        map.addAttribute("DomTime", DomTime);
+        map.addAttribute("JSTime",JSTime);
         map.addAttribute("FirstPageTime", FirstPageTime);
         return "index";
     }

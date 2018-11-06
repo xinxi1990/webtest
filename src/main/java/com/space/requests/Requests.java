@@ -13,13 +13,16 @@ import static io.restassured.RestAssured.given;
 public class Requests {
     public static String Api = "http://localhost:8081/report";
 
-    public void request(String URL,String REPORT,Long WhitePageTime,Long FirstPageTime) throws IOException {
-        String ReprotPath = REPORT + "/report_" + timeDate() + ".html";
+    public void request(HashMap timeMap) throws IOException {
+        String ReprotPath = timeMap.get("report") + "/report_" + timeDate() + ".html";
         RestAssured.useRelaxedHTTPSValidation();
         HashMap paramsMap = new HashMap();
-        paramsMap.put("URL",URL);
-        paramsMap.put("WhitePageTime",WhitePageTime);
-        paramsMap.put("FirstPageTime",FirstPageTime);
+        paramsMap.put("URL",timeMap.get("web"));
+        paramsMap.put("DnsTime",timeMap.get("DnsTime"));
+        paramsMap.put("WhitePageTime",timeMap.get("WhitePageTime"));
+        paramsMap.put("DomTime",timeMap.get("DomTime"));
+        paramsMap.put("JSTime",timeMap.get("JSTime"));
+        paramsMap.put("FirstPageTime",timeMap.get("FirstPageTime"));
         Response response = (Response) given().params(paramsMap).when().get(Api).then().statusCode(200).
                 extract();
         String result = response.body().asString();
