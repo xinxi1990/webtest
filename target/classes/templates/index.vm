@@ -1,0 +1,107 @@
+
+<html>
+<meta charset="UTF-8">
+
+<script src="https://img.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+    <h4>web页面性能测试:${URL}</h4>
+    <div id="WhitePageTime" style="min-width:500px;height:400px"></div>
+    <div id="FirstPageTime" style="min-width:500px;height:400px"></div>
+
+    <script>
+		//自己编写的js方法
+		function getActivity(yInfo, mInfo, info){
+			var i = yInfo.indexOf(info);
+			return mInfo[i];
+		}
+
+        $(function () {
+            $('#WhitePageTime').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                credits: {
+                    enabled:false
+                },
+                title: {
+                    text: '白屏时间'
+                },
+                xAxis: {
+                    categories: [
+                        '白屏'
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'ms'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="font-size:10px;color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0;font-size:10px;">{point.y:.1f} 秒</td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: '白屏时间',
+                    data: [${WhitePageTime}]
+                }]
+            });
+            $('#FirstPageTime').highcharts({
+                            chart: {
+                                type: 'column'
+                            },
+                            credits: {
+                                enabled:false
+                            },
+                            title: {
+                                text: '首屏时间'
+                            },
+                            xAxis: {
+                                categories: [
+                                    '首屏'
+                                ],
+                                crosshair: true
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'ms'
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                pointFormat: '<tr><td style="font-size:10px;color:{series.color};padding:0">{series.name}: </td>' +
+                                '<td style="padding:0;font-size:10px;">{point.y:.1f} 秒</td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [{
+                                name: '首屏时间',
+                                data: [${FirstPageTime}]
+                            }]
+                        });
+        })
+    </script>
+    <style type="text/css">
+    </style>
+</body>
+</html>
+
